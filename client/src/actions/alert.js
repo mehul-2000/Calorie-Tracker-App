@@ -13,6 +13,9 @@ export const clearAlert = () => (dispatch) => {
 export const showUserSignUpSuccess = () => async (dispatch) => {
 
     dispatch({ type: 'SETUP_USER_SUCCESS', alertText: 'Verfying Details...' })
+    setTimeout(() => {
+        dispatch({ type: 'CLEAR_ALERT' })
+    }, 1000)
 
 }
 

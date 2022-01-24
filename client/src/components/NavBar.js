@@ -23,7 +23,7 @@ const Navbar = () => {
     useEffect(() => {
         const token = user?.token
 
-        console.log(token)
+        // console.log(token)
         //JSONWebToken check 
         if (token) {
             const decodedToken = decode(token);

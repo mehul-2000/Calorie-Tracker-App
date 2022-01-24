@@ -17,7 +17,7 @@ const Meal = ({ meal, color, setCurrentId }) => {
             <div className='content'>
                 <div className='content-center'>
                     <span className='icon'><FaCalendarAlt /></span>
-                    <span className='text'>{(meal.date)}</span>
+                    <span className='text'>{meal.date}</span>
                 </div>
                 <footer>
                     <div className='actions'>

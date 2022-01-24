@@ -45,7 +45,8 @@ export const signUp = async (req, res) => {
         const hashedPassword = await bcrypt.hash(password, 12);
 
         const result = await User.create({ name, email, password: hashedPassword })
-        const token = result.generateAuthToken()
+        const token = await result.generateAuthToken()
+
         res.status(200).json({ result, token })
     } catch (err) {
         res.status(500).json({ message: 'Something wrong in signUp Controller' })
