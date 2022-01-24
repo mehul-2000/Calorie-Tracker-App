@@ -1,10 +1,12 @@
 import React from 'react'
-import { useAppContext } from '../context/appContext'
+import { useSelector } from 'react-redux'
+
 function Alert() {
-    const { alertType, alertText } = useAppContext()
+
+    const alerts = useSelector((state) => state.alerts)
     return (
-        <div className={`alert alert-${alertType}`}>
-            {alertText}
+        <div className={`alert alert-${alerts.alertType}`}>
+            {alerts.alertText}
         </div>
     )
 }

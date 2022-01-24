@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 
 const Wrapper = styled.main`
+   
   nav {
     width: var(--fluid-width);
     max-width: var(--max-width);
@@ -28,6 +29,7 @@ const Wrapper = styled.main`
     display: none;
   }
   @media (min-width: 992px) {
+    
     .page {
       grid-template-columns: 1fr 1fr;
       column-gap: 3rem;

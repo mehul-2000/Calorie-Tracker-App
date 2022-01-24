@@ -1,18 +1,27 @@
 import express from 'express';
 import dotenv from 'dotenv';
-
+import cors from 'cors'
 dotenv.config();
 import connectDB from './db/connect.js';
 import notFoundMiddleware from './middleware/not-found.js';
 import errorHandlerMiddleware from './middleware/error-handler.js';
-import auth from './routes/auth.js'
+import userRoutes from './routes/user.js'
+import mealRoutes from './routes/meal.js';
+import bodyParser from 'body-parser';
 const app = express();
+
+app.use(cors());
+app.use(bodyParser.json({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json())
 //middleware
-app.use(auth)
-app.get("/", (req, res) => {
-    res.send('Welcome!')
-})
+
+app.use('/user', userRoutes)
+app.use('/meal', mealRoutes)
+
+// app.get("/", (req, res) => {
+//     res.send('Welcome!')
+// })
 app.use(notFoundMiddleware)
 app.use(errorHandlerMiddleware)
 const port = process.env.PORT || 5000

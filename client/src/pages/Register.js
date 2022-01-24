@@ -1,7 +1,12 @@
-import { React, useState, useEffect } from 'react'
+import { React, useState } from 'react'
 import { Logo, FormRow, Alert } from '../components'
 import Wrapper from '../assets/wrappers/RegisterPage'
-import { useAppContext } from '../context/appContext'
+import { useSelector, useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom';
+import { displayAlert, showUserSignUpSuccess, displaySignInSuccess } from '../actions/alert'
+import { signIn, signUp } from '../actions/auth'
+
+
 const initialState = {
     name: '',
     email: '',
@@ -13,7 +18,10 @@ const initialState = {
 function Register() {
 
     const [values, setValues] = useState(initialState)
-    const { isLoading, showAlert, displayAlert } = useAppContext()
+    const alerts = useSelector((state) => state.alerts)
+    const dispatch = useDispatch()
+    const history = useNavigate()
+
     const toggleMember = () => {
         setValues({ ...values, isMember: !values.isMember })
     }
@@ -23,22 +31,33 @@ function Register() {
         setValues({ ...values, [e.target.name]: e.target.value })
     }
 
+
     //To handle on submit
     const onSubmit = (e) => {
         e.preventDefault()
         const { name, email, password, isMember } = values;
         if (!email || !password || (!isMember && !name)) {
-            displayAlert()
+            dispatch(displayAlert())
             return;
         }
-        console.log(values)
+
+        if (isMember) {
+
+            dispatch(signIn(values, history))
+            dispatch(displaySignInSuccess())
+        }
+        else {
+            dispatch(signUp(values, history))
+            dispatch(showUserSignUpSuccess());
+        }
+
     }
     return (
-        <Wrapper className='full-page'>
-            <form className='form' onSubmit={onSubmit}>
+        <Wrapper className='full-page bg'>
+            <form method='POST' className='form' onSubmit={onSubmit}>
                 <Logo />
                 <h3>{values.isMember ? 'Login' : 'Register'}</h3>
-                {showAlert && <Alert />}
+                {alerts.showAlert && <Alert />}
                 {/* name input */}
                 {!values.isMember &&
                     <FormRow type="text" name="name" value={values.name} handleChange={handleChange} />

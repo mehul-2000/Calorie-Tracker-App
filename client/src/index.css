@@ -225,6 +225,12 @@ ul {
   text-transform: capitalize;
   letter-spacing: var(--letterSpacing);
 }
+.header-success {
+  background-color: green;
+}
+.header-danger {
+  background-color: red;
+}
 .form-input,
 .form-textarea,
 .form-select {
@@ -318,4 +324,7 @@ ul {
     display: inline-block;
     margin-right: 0.5rem;
   }
+}
+.bg {
+  background-image: url(../src/assets/images/bgimg.svg);
 }

@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 
 const Wrapper = styled.section`
+  
   display: grid;
   align-items: center;
   .logo {
@@ -9,6 +10,7 @@ const Wrapper = styled.section`
     margin-bottom: 1.38rem;
   }
   .form {
+   
     max-width: 400px;
     border-top: 5px solid var(--primary-500);
   }
