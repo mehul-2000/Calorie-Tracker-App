@@ -6,7 +6,10 @@ const Wrapper = styled.article`
   display: grid;
   grid-template-rows: 1fr auto;
   box-shadow: var(--shadow-2);
-
+  .text{
+    width:100px;
+    margin-left:20px;
+  }
   header {
     padding: 1rem 1.5rem;
     border-bottom: 1px solid var(--grey-100);

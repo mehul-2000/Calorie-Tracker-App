@@ -3,9 +3,10 @@ import { FaCalendarAlt } from 'react-icons/fa'
 import { useDispatch } from 'react-redux'
 import Wrapper from '../../assets/wrappers/Meal'
 import { deleteMeal } from '../../actions/meal'
-
-const Meal = ({ meal, color, setCurrentId }) => {
+import { useSelector } from 'react-redux'
+const Meal = ({ meal, color, setCurrentId, setList, date }) => {
     const dispatch = useDispatch();
+    const meals = useSelector((state) => state.meals)
     return (
         <Wrapper>
             <header className={`header-${color}`}>
@@ -17,7 +18,7 @@ const Meal = ({ meal, color, setCurrentId }) => {
             <div className='content'>
                 <div className='content-center'>
                     <span className='icon'><FaCalendarAlt /></span>
-                    <span className='text'>{meal.date}</span>
+                    <span className='text'>{`${date}`}</span>
                 </div>
                 <footer>
                     <div className='actions'>
@@ -25,6 +26,7 @@ const Meal = ({ meal, color, setCurrentId }) => {
                             className='btn edit-btn'
                             onClick={() => {
                                 setCurrentId(meal._id)
+                                document.documentElement.scrollTop = 0;
                             }}
                         >
                             Edit
@@ -32,7 +34,10 @@ const Meal = ({ meal, color, setCurrentId }) => {
                         <button
                             type='button'
                             className='btn delete-btn'
-                            onClick={() => { dispatch(deleteMeal(meal._id)); }}
+                            onClick={() => {
+                                dispatch(deleteMeal(meal._id));
+                                setList(meals)
+                            }}
                         >
                             Delete
                         </button>

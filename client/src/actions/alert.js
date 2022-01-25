@@ -38,5 +38,8 @@ export const displayUpdateSuccess = () => (dispatch) => {
     dispatch({ type: 'LOGIN_SUCCESS', alertText: 'Data updated Successfully.' })
     dispatch(clearAlert())
 }
-
+export const invalidInput = () => (dispatch) => {
+    dispatch({ type: 'LOGIN_ERROR', alertText: 'Cannot left any fields empty.Please fill all to continue.' })
+    dispatch(clearAlert())
+}
 

@@ -22,6 +22,7 @@ const Wrapper = styled.section`
   }
   .meals-list{
     display: grid;
+    border-radius: 1rem solid black;
     grid-template-columns: 1fr 1fr;
     column-gap: 1rem;
     row-gap:1rem;
@@ -34,9 +35,10 @@ const Wrapper = styled.section`
     }
     .meals-list{
     display: grid;
-    grid-template-columns: 0.2fr 0.5fr 0.5fr 0.5fr 0.5fr;
+    grid-template-columns: 0.5fr 0.5fr 0.5fr 0.5fr 0.5fr;
     column-gap: 1rem;
     row-gap:1rem;
+    border-radius: 1rem solid black;
   }
     .meals-datewise{
       display: grid;

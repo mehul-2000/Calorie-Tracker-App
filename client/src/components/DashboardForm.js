@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import { FormRow, Alert } from './index'
+
+import moment from 'moment'
 import Wrapper from '../assets/wrappers/DashboardFormPage'
 import { useDispatch, useSelector } from 'react-redux'
-import { createMeal, updateMeal } from '../actions/meal'
-import { displayEntrySuccess, displayUpdateSuccess } from '../actions/alert'
-const DashboardForm = ({ currentId, setCurrentId }) => {
+import { createMeal, updateMeal, getMeals } from '../actions/meal'
+import { displayEntrySuccess, displayUpdateSuccess, invalidInput } from '../actions/alert'
+const DashboardForm = ({ currentId, setCurrentId, setList }) => {
     const [meal, setMeal] = useState({
         name: '',
         calories: '',
@@ -12,10 +14,13 @@ const DashboardForm = ({ currentId, setCurrentId }) => {
         user_id: ''
     })
     const mealData = useSelector((state) => currentId ? state.meals.find(p => p._id === currentId) : null)
+
     const alert = useSelector((state) => state.alerts)
+    const mealList = useSelector((state) => state.meals)
     const dispatch = useDispatch();
     const user = JSON.parse(localStorage.getItem('profile'))
 
+    //handling the update in form
     useEffect(() => {
         if (mealData) { setMeal(mealData); }
     }, [currentId]);
@@ -23,18 +28,28 @@ const DashboardForm = ({ currentId, setCurrentId }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        if (currentId) {
-            //for updating already existing meal
-            dispatch(updateMeal(currentId, meal))
-            dispatch(displayUpdateSuccess())
+        console.log(meal)
+        if (meal.name === "" || meal.calories === "" || meal.date === "") {
+            dispatch(invalidInput());
         }
         else {
-            //for inserting new meal
-            meal.user_id = user.result._id;
-            dispatch(createMeal(meal))
-            dispatch(displayEntrySuccess())
+            if (currentId) {
+                //for updating already existing meal
+                dispatch(updateMeal(currentId, meal))
+                dispatch(displayUpdateSuccess())
+
+            }
+            else {
+                //for inserting new meal
+                meal.user_id = user.result._id;
+                dispatch(createMeal(meal))
+                //same time i am calling getMeals so that my state gets updated
+                dispatch(getMeals())
+                dispatch(displayEntrySuccess())
+            }
+            setList(mealList)
+            clearValues()
         }
-        clearValues()
     }
 
     const clearValues = () => {
@@ -50,7 +65,7 @@ const DashboardForm = ({ currentId, setCurrentId }) => {
         <Wrapper>
             <form className='form' autoComplete='off' onSubmit={handleSubmit}>
                 {alert.showAlert && <Alert />}
-                <h3>{currentId ? 'Edit' : 'Add'} Diet</h3>
+                <h3>{currentId ? 'Edit the form to update that meal' : 'Add'} Diet</h3>
                 <div className='form-center'>
                     {/* Food Name */}
                     <FormRow
@@ -73,6 +88,7 @@ const DashboardForm = ({ currentId, setCurrentId }) => {
                         labelText='Date of adding Meal'
                         name='date'
                         value={meal.date}
+                        max={moment().format("YYYY-MM-DD")}
                         handleChange={(e) => setMeal({ ...meal, date: e.target.value })}
                     />
 

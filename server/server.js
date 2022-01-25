@@ -19,9 +19,7 @@ app.use(express.json())
 app.use('/user', userRoutes)
 app.use('/meal', mealRoutes)
 
-// app.get("/", (req, res) => {
-//     res.send('Welcome!')
-// })
+
 app.use(notFoundMiddleware)
 app.use(errorHandlerMiddleware)
 const port = process.env.PORT || 5000
