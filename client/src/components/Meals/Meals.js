@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux'
 import Wrapper from '../../assets/wrappers/MealsContainer'
 
 
-const Meals = ({ setCurrentId, currentId }) => {
+const Meals = ({ setCurrentId, currentId, setList }) => {
 
   const calculateCalories = (arr) => {
     const sum = arr.map(item => item.calories).reduce((prev, curr) => prev + curr, 0)
@@ -58,7 +58,7 @@ const Meals = ({ setCurrentId, currentId }) => {
                 <div className='meals-list'>
                   {mealItem.map((meal) => {
 
-                    return <Meal key={meal._id} meal={meal} color={sign} date={date} currentId={currentId} setCurrentId={setCurrentId} />
+                    return <Meal key={meal._id} meal={meal} color={sign} date={date} setList={setList} setCurrentId={setCurrentId} />
 
                   })}
                 </div>

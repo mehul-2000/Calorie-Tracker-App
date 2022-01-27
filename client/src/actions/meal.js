@@ -6,7 +6,7 @@ export const getMeals = () => async (dispatch) => {
 
     try {
         const { data } = await api.fetchMeals()
-        console.log(data)
+        // console.log(data)
         dispatch({
             type: 'FETCH_MEAL',
             payload: data
@@ -22,7 +22,7 @@ export const getMeals = () => async (dispatch) => {
 export const createMeal = (meal) => async (dispatch) => {
     try {
         const data = await api.createMeal(meal)
-        console.log(data)
+        // console.log(data)
         dispatch({
             type: 'CREATE_MEAL',
             payload: meal

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { FormRow, Alert } from './index'
-
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 import moment from 'moment'
 import Wrapper from '../assets/wrappers/DashboardFormPage'
 import { useDispatch, useSelector } from 'react-redux'
@@ -22,13 +23,18 @@ const DashboardForm = ({ currentId, setCurrentId, setList }) => {
 
     //handling the update in form
     useEffect(() => {
-        if (mealData) { setMeal(mealData); }
+        if (mealData) {
+            let date = new Date(mealData.date);
+            let d = moment(date).format('yyyy-MM-DD');
+            mealData.date = d;
+            setMeal(mealData);
+        }
     }, [currentId]);
 
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        console.log(meal)
+        // console.log(meal)
         if (meal.name === "" || meal.calories === "" || meal.date === "") {
             dispatch(invalidInput());
         }
@@ -44,7 +50,7 @@ const DashboardForm = ({ currentId, setCurrentId, setList }) => {
                 meal.user_id = user.result._id;
                 dispatch(createMeal(meal))
                 //same time i am calling getMeals so that my state gets updated
-                dispatch(getMeals())
+                // dispatch(getMeals())
                 dispatch(displayEntrySuccess())
             }
             setList(mealList)
@@ -88,10 +94,20 @@ const DashboardForm = ({ currentId, setCurrentId, setList }) => {
                         labelText='Date of adding Meal'
                         name='date'
                         value={meal.date}
-                        max={moment().format("YYYY-MM-DD")}
                         handleChange={(e) => setMeal({ ...meal, date: e.target.value })}
                     />
-
+                    {/* <div className='form-row'>
+                        <label htmlFor={meal.date} className='form-label'>
+                            Date of adding Meal
+                        </label>
+                        <DatePicker
+                            className="form-input"
+                            maxDate={new Date()}
+                            name="date"
+                            value={meal.date}
+                            onChange={(e) => setMeal({ ...meal, date: e.target.value })}
+                        />
+                    </div> */}
                     {/* btn container */}
                     <div className='btn-container'>
                         <button

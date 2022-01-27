@@ -15,7 +15,7 @@ const auth = async (req, res, next) => {
     }
     catch (err) {
         res.status(401).send("Unauthorized:No token provided")
-        console.log(error)
+        console.log(err)
     }
 }
 export default auth

@@ -11,7 +11,6 @@ function Dashboard() {
     const [currentId, setCurrentId] = useState(null)
     const dispatch = useDispatch()
     useEffect(() => {
-        console.log('Hi')
         dispatch(getMeals())
         // eslint-disable-next-line
     }, [list])
