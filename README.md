@@ -6,8 +6,8 @@ It has inbuilt calorie level indicator such that if your daily dose exceeds a pa
 # Steps to get it run on your local machine
 
 1: Just clone the repo.
-2: run npm run in client and server folders respectively.
-3: Use .env file to store your mongoDB database URL and port number.
-4: run npm run dev
+3: Install the npm dependencies using npm install.
+2: Use .env file to store your mongoDB database URL and port number.
+3: run npm run dev in the server folder.
 
 You are good to go!!!
