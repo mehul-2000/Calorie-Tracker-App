@@ -21,11 +21,11 @@ export const getMeals = () => async (dispatch) => {
 //action for creating a meal
 export const createMeal = (meal) => async (dispatch) => {
     try {
-        const data = await api.createMeal(meal)
-        // console.log(data)
+        const res = await api.createMeal(meal)
+
         dispatch({
             type: 'CREATE_MEAL',
-            payload: meal
+            payload: res.data
         })
 
     } catch (e) {

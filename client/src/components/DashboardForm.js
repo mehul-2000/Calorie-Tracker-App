@@ -25,7 +25,7 @@ const DashboardForm = ({ currentId, setCurrentId, setList }) => {
     useEffect(() => {
         if (mealData) {
             let date = new Date(mealData.date);
-            let d = moment(date).format('yyyy-MM-DD');
+            var d = moment(date).format('yyyy-MM-DD');
             mealData.date = d;
             setMeal(mealData);
         }
@@ -49,8 +49,6 @@ const DashboardForm = ({ currentId, setCurrentId, setList }) => {
                 //for inserting new meal
                 meal.user_id = user.result._id;
                 dispatch(createMeal(meal))
-                //same time i am calling getMeals so that my state gets updated
-                // dispatch(getMeals())
                 dispatch(displayEntrySuccess())
             }
             setList(mealList)
@@ -94,7 +92,7 @@ const DashboardForm = ({ currentId, setCurrentId, setList }) => {
                         labelText='Date of adding Meal'
                         name='date'
                         value={meal.date}
-                        handleChange={(e) => setMeal({ ...meal, date: e.target.value })}
+                        handleChange={(e) => { setMeal({ ...meal, date: e.target.value }) }}
                     />
                     {/* <div className='form-row'>
                         <label htmlFor={meal.date} className='form-label'>
@@ -103,9 +101,13 @@ const DashboardForm = ({ currentId, setCurrentId, setList }) => {
                         <DatePicker
                             className="form-input"
                             maxDate={new Date()}
-                            name="date"
-                            value={meal.date}
-                            onChange={(e) => setMeal({ ...meal, date: e.target.value })}
+                            selected={meal.date}
+                            dateFormat='yyyy/MM/dd'
+                            onChange={(date) => {
+                                var d = new Date(date);
+                                d.setMinutes(d.getMinutes() + d.getTimezoneOffset());
+                                setMeal({ ...meal, date: d })
+                            }}
                         />
                     </div> */}
                     {/* btn container */}
