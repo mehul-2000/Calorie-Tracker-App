@@ -25,7 +25,10 @@ const DashboardForm = ({ currentId, setCurrentId, setList }) => {
     useEffect(() => {
         if (mealData) {
             let date = new Date(mealData.date);
-            var d = moment(date).format('yyyy-MM-DD');
+            // var d = moment(date).format('yyyy-MM-DD');
+            // var d = moment(date).format('DD/MMM/yyyy');
+            var d = moment(date).toDate();
+            console.log(d)
             mealData.date = d;
             setMeal(mealData);
         }
@@ -87,14 +90,14 @@ const DashboardForm = ({ currentId, setCurrentId, setList }) => {
                         handleChange={(e) => setMeal({ ...meal, calories: e.target.value })}
                     />
                     {/* Date */}
-                    <FormRow
+                    {/* <FormRow
                         type='date'
                         labelText='Date of adding Meal'
                         name='date'
                         value={meal.date}
                         handleChange={(e) => { setMeal({ ...meal, date: e.target.value }) }}
-                    />
-                    {/* <div className='form-row'>
+                    /> */}
+                    <div className='form-row'>
                         <label htmlFor={meal.date} className='form-label'>
                             Date of adding Meal
                         </label>
@@ -102,14 +105,15 @@ const DashboardForm = ({ currentId, setCurrentId, setList }) => {
                             className="form-input"
                             maxDate={new Date()}
                             selected={meal.date}
-                            dateFormat='yyyy/MM/dd'
+                            // dateFormat='dd-MMM-yyyy'
+                            dateFormat='yyyy-MM-dd'
                             onChange={(date) => {
                                 var d = new Date(date);
                                 d.setMinutes(d.getMinutes() + d.getTimezoneOffset());
                                 setMeal({ ...meal, date: d })
                             }}
                         />
-                    </div> */}
+                    </div>
                     {/* btn container */}
                     <div className='btn-container'>
                         <button

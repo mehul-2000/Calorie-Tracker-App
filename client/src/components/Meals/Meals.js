@@ -22,8 +22,10 @@ const Meals = ({ setCurrentId, currentId, setList }) => {
 
   const groups = currentUserMeals.reduce((groups, meal) => {
     // const currDate = new Date(meal.date).toISOString()
-    const date = meal.date.split('T')[0];
-
+    // const date = meal.date.split('T')[0];
+    //test
+    const currDate = new Date(meal.date).toISOString()
+    const date = currDate.split('T')[0];
     if (!groups[date]) {
       groups[date] = [];
     }
